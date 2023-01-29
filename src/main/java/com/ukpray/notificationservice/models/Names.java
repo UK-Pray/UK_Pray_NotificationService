@@ -11,7 +11,7 @@ public class Names {
 
     @Id
     private String id;
-    private final List<String> Names = new LinkedList<>();
+    private List<String> Names = new LinkedList<>();
 
     public Names() {
     }
@@ -26,5 +26,9 @@ public class Names {
 
     public List<String> getNames() {
         return Names;
+    }
+
+    public void setNames(List<String> Names) {
+        Names = Names;
     }
 }
