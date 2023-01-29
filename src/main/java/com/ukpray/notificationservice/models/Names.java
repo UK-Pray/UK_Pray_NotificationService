@@ -10,25 +10,21 @@ import java.util.List;
 public class Names {
 
     @Id
-    private Long id;
-    private List<String> Names = new LinkedList<>();
+    private String id;
+    private final List<String> Names = new LinkedList<>();
 
     public Names() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     public List<String> getNames() {
         return Names;
-    }
-
-    public void setNames(List<String> Names) {
-        Names = Names;
     }
 }

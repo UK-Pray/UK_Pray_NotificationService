@@ -1,0 +1,29 @@
+server:
+  servlet:
+    context-path: /notification/
+  error:
+    include-message: always
+  port: 8080
+spring:
+  application:
+    name: notification-service
+  cloud:
+    gcp:
+      credentials:
+        location:
+      project-id: ukpray00
+      secretmanager:
+        bootstrap:
+          enabled: true
+      firestore:
+        enabled: true
+
+application:
+  title: UK Pray Notification Service
+  version: 0.1.0
+
+secrets:
+  mailgun-api-key: ${sm://projects/787900195669/secrets/Mailgun}
+
+
+
