@@ -27,6 +27,9 @@ public class PrayerPartner {
     @Nullable
     private List<String> names = new LinkedList<>();
 
+    public PrayerPartner() {
+    }
+
     public PrayerPartner(String firstName, String lastName, String email, String church, String city, String state) {
         this.firstName = firstName;
         this.lastName = lastName;

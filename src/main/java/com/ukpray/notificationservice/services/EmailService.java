@@ -8,12 +8,14 @@ import com.mailgun.api.v3.MailgunMessagesApi;
 import com.mailgun.model.message.Message;
 import com.mailgun.model.message.MessageResponse;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class EmailService {
@@ -43,15 +45,15 @@ public class EmailService {
                 .to(prayerPartner.getEmail())
                 .subject("Welcome - your names")
                 .html(createSignUpEmail(prayerPartner, sender))
-                .text("Testing out some Mailgun awesomeness!")
                 .build();
         return mailgunMessagesApi.sendMessage("ukpray.com", message);
     }
 
     private String createSignUpEmail(PrayerPartner prayerPartner, String sender) {
         try {
-            Path filePath = Path.of("src/main/resources/signup-email.html");
-            String content = Files.readString(filePath);
+            InputStream is = getClass().getResourceAsStream("/signup-email.html");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            String content = reader.lines().collect(Collectors.joining(System.lineSeparator()));
             StringBuilder namesString1 = new StringBuilder();
             StringBuilder namesString2 = new StringBuilder();
             for(int i = 0; i < Objects.requireNonNull(prayerPartner.getNames()).size(); i++){
@@ -67,7 +69,7 @@ public class EmailService {
             content = content.replace("$sender", sender);
             return content;
         }catch (Exception e) {
-            throw new RuntimeException("Error");
+            throw new RuntimeException(e);
         }
     }
 

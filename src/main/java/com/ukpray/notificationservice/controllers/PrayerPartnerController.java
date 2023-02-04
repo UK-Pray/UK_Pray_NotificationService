@@ -6,10 +6,9 @@ import com.ukpray.notificationservice.models.PrayerPartner;
 import com.ukpray.notificationservice.services.PrayerPartnerService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/prayer-partner")
@@ -20,8 +19,9 @@ public class PrayerPartnerController {
     public PrayerPartnerController(PrayerPartnerService prayerPartnerService){
         this.prayerPartnerService = prayerPartnerService;
     }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MessageResponse> create(@RequestBody PrayerPartner prayerPartner){
+    public ResponseEntity<MessageResponse> create(@RequestBody PrayerPartner prayerPartner, HttpServletResponse httpServletResponse){
         return ResponseEntity.ok(prayerPartnerService.signUpPrayerPartner(prayerPartner));
     }
 
